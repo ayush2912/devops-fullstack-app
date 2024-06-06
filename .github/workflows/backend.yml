@@ -14,4 +14,5 @@ jobs:
       
       # Add more steps as needed
       - name: Run a script
-        run: echo "Changes detected in path/to/folder"
+        run: docker build -t my-go-app .
+
