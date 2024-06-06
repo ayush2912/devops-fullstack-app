@@ -142,6 +142,7 @@ resource "aws_eks_addon" "coredns" {
   cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "coredns"
   addon_version = "v1.11.1-eksbuild.9"
+  resolve_conflicts = "OVERWRITE"
 }
 
 resource "aws_eks_addon" "kube_proxy" {
