@@ -113,7 +113,7 @@ resource "aws_eks_node_group" "my_nodes" {
   capacity_type   = "ON_DEMAND"
 
   labels = {
-    "Name" = "my"
+    "Name" = "my-cluster"
   }
 
   scaling_config {
