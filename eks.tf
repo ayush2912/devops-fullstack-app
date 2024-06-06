@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "ap-south-1" 
+  region = "us-east-1" 
 }
 
 resource "aws_iam_role" "my_cluster" {
@@ -27,13 +27,15 @@ resource "aws_iam_role_policy_attachment" "my_cluster-AmazonEKSClusterPolicy" {
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EKS" {
- policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
- role       = aws_iam_role.my_cluster.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.my_cluster.name
 }
+
 resource "aws_iam_role_policy_attachment" "IAMFullAccess" {
   policy_arn = "arn:aws:iam::aws:policy/IAMFullAccess"
   role       = aws_iam_role.my_cluster.name
 }
+
 resource "aws_cloudwatch_log_group" "eks_cluster_logs" {
   name = "/aws/eks/my-cluster"
 }
@@ -41,7 +43,7 @@ resource "aws_cloudwatch_log_group" "eks_cluster_logs" {
 resource "aws_eks_cluster" "my_cluster" {
   name     = "my-cluster"
   role_arn = aws_iam_role.my_cluster.arn
-  version  = "1.24"
+  version  = "1.27"
 
   vpc_config {
     subnet_ids = [var.subnet_id_1, var.subnet_id_2]
@@ -144,17 +146,17 @@ resource "aws_eks_node_group" "my_nodes" {
 resource "aws_eks_addon" "coredns" {
   cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "coredns"
-  addon_version = "v1.8.4-eksbuild.1"
+  addon_version = "v1.10.1-eksbuild.1"
 }
 
 resource "aws_eks_addon" "kube_proxy" {
   cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "kube-proxy"
-  addon_version = "v1.19.6-eksbuild.2"
+  addon_version = "v1.27.0-eksbuild.1"
 }
 
 resource "aws_eks_addon" "vpc_cni" {
   cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "vpc-cni"
-  addon_version = "v1.7.5-eksbuild.2"
+  addon_version = "v1.12.0-eksbuild.1"
 }
