@@ -1,10 +1,9 @@
+name: Frontend job
 on:
-  push:
-    paths:
-      - 'path/to/folder/**'
-  pull_request:
-    paths:
-      - 'path/to/folder/**'
+ push:
+   branches: ["main"]
+   paths:
+    - 'frontend/**'
 jobs:
   build:
     runs-on: ubuntu-latest
