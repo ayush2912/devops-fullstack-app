@@ -44,27 +44,6 @@ resource "aws_eks_cluster" "my_cluster" {
   name     = "my-cluster"
   role_arn = aws_iam_role.my_cluster.arn
   version  = "1.29"
-
-resource "aws_eks_addon" "coredns" {
-  cluster_name = aws_eks_cluster.my_cluster.name
-  addon_name   = "coredns"
-  addon_version = "v1.11.1-eksbuild.9"
-  resolve_conflicts = "OVERWRITE"
-}
-
-resource "aws_eks_addon" "kube_proxy" {
-  cluster_name = aws_eks_cluster.my_cluster.name
-  addon_name   = "kube-proxy"
-  addon_version = "v1.29.1-eksbuild.2"
-}
-
-resource "aws_eks_addon" "vpc_cni" {
-  cluster_name = aws_eks_cluster.my_cluster.name
-  addon_name   = "vpc-cni"
-  addon_version = "v1.18.1-eksbuild.3"
-}
-
-
   vpc_config {
     subnet_ids = [var.subnet_id_1, var.subnet_id_2]
 
@@ -123,7 +102,24 @@ resource "aws_iam_role_policy_attachment" "my_nodes-AmazonEC2ContainerRegistryRe
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.my_nodes.name
 }
+resource "aws_eks_addon" "coredns" {
+  cluster_name = aws_eks_cluster.my_cluster.name
+  addon_name   = "coredns"
+  addon_version = "v1.11.1-eksbuild.9"
+  resolve_conflicts = "OVERWRITE"
+}
 
+resource "aws_eks_addon" "kube_proxy" {
+  cluster_name = aws_eks_cluster.my_cluster.name
+  addon_name   = "kube-proxy"
+  addon_version = "v1.29.1-eksbuild.2"
+}
+
+resource "aws_eks_addon" "vpc_cni" {
+  cluster_name = aws_eks_cluster.my_cluster.name
+  addon_name   = "vpc-cni"
+  addon_version = "v1.18.1-eksbuild.3"
+}
 resource "aws_eks_node_group" "my_nodes" {
   cluster_name    = aws_eks_cluster.my_cluster.name
   node_group_name = "my_nodes"
