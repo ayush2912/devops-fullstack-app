@@ -1,10 +1,11 @@
+name: backend job
 on:
-  push:
-    paths:
-      - '*/backend/**'
-  pull_request:
-    paths:
-      - 'path/to/folder/**'
+ push:
+   branches:
+     - dev
+     - prod
+   paths:
+    - 'backend/**'
 jobs:
   build:
     runs-on: ubuntu-latest
