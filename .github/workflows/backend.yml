@@ -1,9 +1,7 @@
 name: backend job
 on:
  push:
-   branches:
-     - dev
-     - prod
+   branches: ["main"]
    paths:
     - 'backend/**'
 jobs:
