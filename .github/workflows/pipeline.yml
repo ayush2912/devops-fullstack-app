@@ -34,7 +34,7 @@ jobs:
     - name: Setup EKS Kubectl
       uses: zachguo/setup-eks-kubectl@v1
       with:
-        cluster: offsetmax-cluster 
+        cluster: my-cluster 
         region: us-east-1
 
 
@@ -102,11 +102,3 @@ jobs:
 
 
     
-    - name: Deploy to EKS
-      run: |
-
-        kubectl create namespace graphql-dev-ns
-        kubectl apply -f deployment.yaml
-        kubectl apply -f config-map.yaml
-        kubectl apply -f service.yaml
-        kubectl apply -f ingress.yaml
