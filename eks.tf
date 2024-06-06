@@ -141,17 +141,17 @@ resource "aws_eks_node_group" "my_nodes" {
 resource "aws_eks_addon" "coredns" {
   cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "coredns"
-  addon_version = "v1.10.1-eksbuild.1"
+  addon_version = "v1.10.1-eksbuild.11"
 }
 
 resource "aws_eks_addon" "kube_proxy" {
   cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "kube-proxy"
-  addon_version = "v1.27.0-eksbuild.1"
+  addon_version = "v1.27.10-eksbuild.2"
 }
 
 resource "aws_eks_addon" "vpc_cni" {
   cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "vpc-cni"
-  addon_version = "v1.12.0-eksbuild.1"
+  addon_version = "v1.18.1-eksbuild.3"
 }
