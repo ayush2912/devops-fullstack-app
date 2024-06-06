@@ -17,7 +17,7 @@ COPY . .
 RUN go build -o main .
 
 # Start a new stage from scratch
-FROM alpine:latest
+FROM golang:1.19-alpine
 
 # Set the Current Working Directory inside the container
 WORKDIR /root/
