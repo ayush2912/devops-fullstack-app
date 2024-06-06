@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - '*/Frontend/**'
+      - '*/backend/**'
   pull_request:
     paths:
       - 'path/to/folder/**'
