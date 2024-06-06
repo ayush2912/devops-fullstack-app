@@ -2,8 +2,8 @@ provider "aws" {
   region = "ap-south-1" 
 }
 
-resource "aws_iam_role" "offsetmax_cluster" {
-  name = "eks-offsetmax_cluster"
+resource "aws_iam_role" "my_cluster" {
+  name = "my_cluster"
 
   assume_role_policy = <<POLICY
 {
@@ -21,26 +21,26 @@ resource "aws_iam_role" "offsetmax_cluster" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "offsetmax_cluster-AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "my_cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.offsetmax_cluster.name
+  role       = aws_iam_role.my_cluster.name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EKS" {
  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
- role       = aws_iam_role.offsetmax_cluster.name
+ role       = aws_iam_role.my_cluster.name
 }
 resource "aws_iam_role_policy_attachment" "IAMFullAccess" {
   policy_arn = "arn:aws:iam::aws:policy/IAMFullAccess"
-  role       = aws_iam_role.offsetmax_cluster.name
+  role       = aws_iam_role.my_cluster.name
 }
 resource "aws_cloudwatch_log_group" "eks_cluster_logs" {
-  name = "/aws/eks/offsetmax-cluster"
+  name = "/aws/eks/my-cluster"
 }
 
-resource "aws_eks_cluster" "offsetmax_cluster" {
-  name     = "offsetmax-cluster"
-  role_arn = aws_iam_role.offsetmax_cluster.arn
+resource "aws_eks_cluster" "my_cluster" {
+  name     = "my-cluster"
+  role_arn = aws_iam_role.my_cluster.arn
   version  = "1.24"
 
   vpc_config {
@@ -52,7 +52,7 @@ resource "aws_eks_cluster" "offsetmax_cluster" {
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   depends_on = [
-    aws_iam_role_policy_attachment.offsetmax_cluster-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.my_cluster-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly-EKS,
     aws_iam_role_policy_attachment.IAMFullAccess
   ]
@@ -77,8 +77,8 @@ resource "aws_security_group" "eks_node_group_sg" {
   }
 }
 
-resource "aws_iam_role" "offsetmax_nodes" {
-  name = "eks-node-group-offsetmax_nodes"
+resource "aws_iam_role" "my_nodes" {
+  name = "eks-node-group-my_nodes"
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -92,31 +92,31 @@ resource "aws_iam_role" "offsetmax_nodes" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "offsetmax_nodes-AmazonEKSWorkerNodePolicy" {
+resource "aws_iam_role_policy_attachment" "my_nodes-AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.offsetmax_nodes.name
+  role       = aws_iam_role.my_nodes.name
 }
 
-resource "aws_iam_role_policy_attachment" "offsetmax_nodes-AmazonEKS_CNI_Policy" {
+resource "aws_iam_role_policy_attachment" "my_nodes-AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.offsetmax_nodes.name
+  role       = aws_iam_role.my_nodes.name
 }
 
-resource "aws_iam_role_policy_attachment" "offsetmax_nodes-AmazonEC2ContainerRegistryReadOnly" {
+resource "aws_iam_role_policy_attachment" "my_nodes-AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.offsetmax_nodes.name
+  role       = aws_iam_role.my_nodes.name
 }
 
-resource "aws_eks_node_group" "offsetmax_nodes" {
-  cluster_name    = aws_eks_cluster.offsetmax_cluster.name
-  node_group_name = "offsetmax_nodes"
-  node_role_arn   = aws_iam_role.offsetmax_nodes.arn
+resource "aws_eks_node_group" "my_nodes" {
+  cluster_name    = aws_eks_cluster.my_cluster.name
+  node_group_name = "my_nodes"
+  node_role_arn   = aws_iam_role.my_nodes.arn
   subnet_ids      = [var.subnet_id_1, var.subnet_id_2]
   instance_types  = ["t3.medium"]
   capacity_type   = "ON_DEMAND"
 
   labels = {
-    "Name" = "offsetmax"
+    "Name" = "my"
   }
 
   scaling_config {
@@ -135,26 +135,26 @@ resource "aws_eks_node_group" "offsetmax_nodes" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.offsetmax_nodes-AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.offsetmax_nodes-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.offsetmax_nodes-AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.my_nodes-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.my_nodes-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.my_nodes-AmazonEC2ContainerRegistryReadOnly,
   ]
 }
 
 resource "aws_eks_addon" "coredns" {
-  cluster_name = aws_eks_cluster.offsetmax_cluster.name
+  cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "coredns"
   addon_version = "v1.8.4-eksbuild.1"
 }
 
 resource "aws_eks_addon" "kube_proxy" {
-  cluster_name = aws_eks_cluster.offsetmax_cluster.name
+  cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "kube-proxy"
   addon_version = "v1.19.6-eksbuild.2"
 }
 
 resource "aws_eks_addon" "vpc_cni" {
-  cluster_name = aws_eks_cluster.offsetmax_cluster.name
+  cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "vpc-cni"
   addon_version = "v1.7.5-eksbuild.2"
 }
