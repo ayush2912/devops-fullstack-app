@@ -31,74 +31,74 @@ jobs:
     
 
 
-    - name: Setup EKS Kubectl
-      uses: zachguo/setup-eks-kubectl@v1
-      with:
-        cluster: my-cluster 
-        region: us-east-1
+    # - name: Setup EKS Kubectl
+    #   uses: zachguo/setup-eks-kubectl@v1
+    #   with:
+    #     cluster: my-cluster 
+    #     region: us-east-1
 
 
 
 
-    - name: Update kube config
-      run: aws eks update-kubeconfig --name my-cluster
+    # - name: Update kube config
+    #   run: aws eks update-kubeconfig --name my-cluster
 
-    - name: installing eksctl
-      run:
-         |
-         ARCH=amd64
-         PLATFORM=$(uname -s)_$ARCH
-         curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+    # - name: installing eksctl
+    #   run:
+    #      |
+    #      ARCH=amd64
+    #      PLATFORM=$(uname -s)_$ARCH
+    #      curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 
-         tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+    #      tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 
-         sudo mv /tmp/eksctl /usr/local/bin
+    #      sudo mv /tmp/eksctl /usr/local/bin
 
-    - name: install oidc
-      run: eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=my-cluster --approve
+    # - name: install oidc
+    #   run: eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=my-cluster --approve
 
-    - name: Installing the AWS Load Balancer policy
-      run: |
-       curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json \
-       aws iam create-policy \
-       --policy-name AWSLoadBalancerControllerIAMPolicy \
-       --policy-document file://iam_policy.json  
+    # - name: Installing the AWS Load Balancer policy
+    #   run: |
+    #    curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json \
+    #    aws iam create-policy \
+    #    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    #    --policy-document file://iam_policy.json  
   
-    - name: Creating load Balancer Controller service account and roles
-      run: |
-        eksctl create iamserviceaccount \
-        --cluster=my-cluster \
-        --namespace=kube-system \
-        --name=aws-load-balancer-controller \
-        --role-name AmazonEKSLoadBalancerControllerRole \
-        --attach-policy-arn=arn:aws:iam::590183924135:policy/AWSLoadBalancerControllerIAMPolicy \
-        --override-existing-serviceaccounts \
-        --approve
+    # - name: Creating load Balancer Controller service account and roles
+    #   run: |
+    #     eksctl create iamserviceaccount \
+    #     --cluster=my-cluster \
+    #     --namespace=kube-system \
+    #     --name=aws-load-balancer-controller \
+    #     --role-name AmazonEKSLoadBalancerControllerRole \
+    #     --attach-policy-arn=arn:aws:iam::590183924135:policy/AWSLoadBalancerControllerIAMPolicy \
+    #     --override-existing-serviceaccounts \
+    #     --approve
 
-    - name: Installing helm
-      run: |
-        curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null \
-        sudo apt-get install apt-transport-https  \
-        sudo apt-get update \
-        sudo apt-get install helm 
+    # - name: Installing helm
+    #   run: |
+    #     curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null \
+    #     sudo apt-get install apt-transport-https  \
+    #     sudo apt-get update \
+    #     sudo apt-get install helm 
         
 
 
-    - name:  Install aws-load-balancer-controller eks
-      run: |
-         helm repo add eks https://aws.github.io/eks-charts
-         helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
-           -n kube-system \
-           --set clusterName=my-cluster \
-            --set serviceAccount.create=false \
-            --set serviceAccount.name=aws-load-balancer-controller \
-           --set region=us-east-1 \
-            --set vpcId=vpc-069630328c95e70a5 \
-            --set image.repository=602401143452.dkr.ecr.us-east-2.amazonaws.com/amazon/aws-load-balancer-controller
+    # - name:  Install aws-load-balancer-controller eks
+    #   run: |
+    #      helm repo add eks https://aws.github.io/eks-charts
+    #      helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+    #        -n kube-system \
+    #        --set clusterName=my-cluster \
+    #         --set serviceAccount.create=false \
+    #         --set serviceAccount.name=aws-load-balancer-controller \
+    #        --set region=us-east-1 \
+    #         --set vpcId=vpc-069630328c95e70a5 \
+    #         --set image.repository=602401143452.dkr.ecr.us-east-2.amazonaws.com/amazon/aws-load-balancer-controller
 
-    - name: Sleep for 30 seconds
-      run: sleep 30s
-      shell: bash
+    # - name: Sleep for 30 seconds
+    #   run: sleep 30s
+    #   shell: bash
 
 
     
