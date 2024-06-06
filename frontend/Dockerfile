@@ -1,29 +1,14 @@
-# Use an official node image as the base image
-FROM node:14 AS build
-
-# Set the working directory
+# Stage 1: Build React App
+FROM node:14.17.0 AS build
 WORKDIR /app
-
-# Copy the package.json and yarn.lock files
-COPY package*.json ./
-
-# Install the dependencies
-RUN npm install
-
-# Copy the rest of the application code
 COPY . .
-
-# Build the React app
+RUN npm install
 RUN npm run build
 
-# Use a smaller image for the production stage
-FROM nginx:stable-alpine
-
-# Copy the built React app from the build stage
+# Stage 2: Serve React App with Nginx
+FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose port 80 to the outside world
-EXPOSE 80
-
-# Start Nginx server
+EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]
+
+
