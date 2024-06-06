@@ -26,6 +26,6 @@ jobs:
           ECR_REGISTRY: 590183924135.dkr.ecr.us-east-1.amazonaws.com
           IMAGE_NAME: frontend-test
         run: |
-          cd frontend/ && docker build -t $ECR_REGISTRY/$IMAGE_NAME:latest  
+          cd frontend/ && docker build -t $ECR_REGISTRY/$IMAGE_NAME:latest  .
           docker push $ECR_REGISTRY/$IMAGE_NAME:latest
-          cd frontend/ && docker build -t my-react-app .
+         
