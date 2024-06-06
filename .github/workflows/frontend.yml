@@ -14,4 +14,4 @@ jobs:
       
       # Add more steps as needed
       - name: Run a script
-        run: echo "Changes detected in path/to/folder"
+        run: cd frontend/ && docker build -t my-react-app .
