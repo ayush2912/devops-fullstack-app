@@ -30,3 +30,4 @@ jobs:
           docker push $ECR_REGISTRY/$IMAGE_NAME:latest
           cd frontend/ && docker build -t my-react-app .
 
+
