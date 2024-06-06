@@ -14,5 +14,4 @@ jobs:
       
       # Add more steps as needed
       - name: Run a script
-        run: docker build -t my-go-app .
-
+        run: cd backend/ &&docker build -t my-go-app .
