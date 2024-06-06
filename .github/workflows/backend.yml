@@ -1,0 +1,18 @@
+on:
+  push:
+    paths:
+      - 'path/to/folder/**'
+  pull_request:
+    paths:
+      - 'path/to/folder/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Add more steps as needed
+      - name: Run a script
+        run: echo "Changes detected in path/to/folder"
