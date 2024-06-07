@@ -28,4 +28,15 @@ jobs:
         run: |
           cd frontend/ && docker build -t $ECR_REGISTRY/$IMAGE_NAME:latest  .
           docker push $ECR_REGISTRY/$IMAGE_NAME:latest
+      - name: Setup EKS Kubectl
+        uses: zachguo/setup-eks-kubectl@v1
+        with:
+          cluster: my-cluster 
+          region: us-east-1
+
+
+
+
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name my-cluster --region us-east-1
          
