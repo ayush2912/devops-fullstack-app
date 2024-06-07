@@ -32,7 +32,7 @@ jobs:
 
 
     - name: Setup EKS Kubectl
-      uses: zachguo/setup-eks-kubectl@v1
+      uses: zachguo/setup-eks-kubectl@v2
       with:
         cluster: my-cluster 
         region: us-east-1
