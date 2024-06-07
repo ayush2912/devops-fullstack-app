@@ -43,27 +43,27 @@ jobs:
     - name: Update kube config
       run: aws eks update-kubeconfig --name my-cluster --region us-east-1
 
-    # - name: installing eksctl
-    #   run:
-    #      |
-    #      ARCH=amd64
-    #      PLATFORM=$(uname -s)_$ARCH
-    #      curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+    - name: installing eksctl
+      run:
+         |
+         ARCH=amd64
+         PLATFORM=$(uname -s)_$ARCH
+         curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 
-    #      tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+         tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 
-    #      sudo mv /tmp/eksctl /usr/local/bin
+         sudo mv /tmp/eksctl /usr/local/bin
 
     # - name: install oidc
     #   run: eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=my-cluster --approve
 
-    - name: Installing the AWS Load Balancer
-      run: |
-       curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json \
+    # - name: Installing the AWS Load Balancer
+    #   run: |
+    #    curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json \
        
-       aws iam create-policy \
-         --policy-name AWSLoadBalancerControllerIAMPolicy \
-         --policy-document file://iam_policy.json  
+    #    aws iam create-policy \
+    #      --policy-name AWSLoadBalancerControllerIAMPolicy \
+    #      --policy-document file://iam_policy.json  
   
     - name: Creating load Balancer Controller service account and roles
       run: |
