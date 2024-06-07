@@ -11,6 +11,7 @@
   type = string
   default = "subnet-0e8dc6fbac55ef719"
  }
+
  variable "subnet_id_4" {
   type = string
   default = "subnet-0631d574ba8cd4935"
