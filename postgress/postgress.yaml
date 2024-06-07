@@ -16,6 +16,7 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: /mnt/data/postgres
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
