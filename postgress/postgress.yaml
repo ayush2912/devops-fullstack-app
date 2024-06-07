@@ -4,6 +4,7 @@ metadata:
   name: my-app
 
 
+
 ---
 apiVersion: apps/v1
 kind: Deployment
