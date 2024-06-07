@@ -106,7 +106,7 @@ resource "aws_eks_addon" "coredns" {
   cluster_name = aws_eks_cluster.my_cluster.name
   addon_name   = "coredns"
   addon_version = "v1.11.1-eksbuild.9"
-  resolve_conflicts = "OVERWRITE"
+  resolve_conflicts_on_update = "PRESERVE"
 }
 
 resource "aws_eks_addon" "kube_proxy" {
@@ -125,7 +125,8 @@ resource "aws_eks_node_group" "my_nodes" {
   node_group_name = "my_nodes"
   node_role_arn   = aws_iam_role.my_nodes.arn
   subnet_ids      = [var.subnet_id_1, var.subnet_id_2]
-  instance_types  = ["t2.medium"]
+  ami_type        = 
+  instance_types  = ["t3.large"]
   capacity_type   = "ON_DEMAND"
 
   labels = {
