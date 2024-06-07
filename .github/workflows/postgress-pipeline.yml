@@ -31,7 +31,7 @@ jobs:
         run: |
 
           
-          kubectl apply -f postgress.yaml
+          kubectl apply -f postgress/postgress.yaml
 
 
          
