@@ -31,11 +31,12 @@ jobs:
         run: |
 
           cd postgress/
-          # kubectl apply -f pv.yaml
-          # kubectl apply -f pvc.yaml
-          # kubectl apply -f postgress.yaml
-          kubectl get pods -n my-app
-          kubectl get events -n my-app
+          kubectl apply -f pv.yaml
+          kubectl apply -f pvc.yaml
+          kubectl apply -f postgress.yaml
+         
+          kubectl get pvc postgres-pvc -n my-app
+
 
 
 
