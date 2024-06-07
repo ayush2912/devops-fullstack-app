@@ -1,4 +1,4 @@
-name: backend job
+name: postgress job
 on:
  push:
    branches: ["main"]
@@ -30,8 +30,8 @@ jobs:
       - name: Deploy to EKS
         run: |
 
-          
-          kubectl apply -f postgress/postgress.yaml
+          cd postgress/
+          kubectl apply -f postgress.yaml
 
 
          
