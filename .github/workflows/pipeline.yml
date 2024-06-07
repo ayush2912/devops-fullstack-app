@@ -104,5 +104,5 @@ jobs:
     - name: Deploy to EKS
       run: |
 
-        kubectl create namespace graphql-dev-ns
+        kubectl get pods -n kube-system
     
