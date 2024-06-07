@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: my-frontend-image
+          image: 590183924135.dkr.ecr.us-east-1.amazonaws.com/frontend-test
           ports:
             - containerPort: 3000
 ---
