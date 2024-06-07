@@ -105,4 +105,5 @@ jobs:
       run: |
 
         kubectl describe pod backend-57f65b9b69-c5g8s -n my-app
+        kubectl describe pod postgres-95b64b786-nlnsd -n my-app
     
