@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: my-backend-image
+          image: 590183924135.dkr.ecr.us-east-1.amazonaws.com/backend-test
           ports:
             - containerPort: 8080
           env:
