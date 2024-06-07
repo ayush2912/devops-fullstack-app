@@ -125,7 +125,6 @@ resource "aws_eks_node_group" "my_nodes" {
   node_group_name = "my_nodes"
   node_role_arn   = aws_iam_role.my_nodes.arn
   subnet_ids      = [var.subnet_id_1, var.subnet_id_2]
-  ami_type        = 
   instance_types  = ["t3.large"]
   capacity_type   = "ON_DEMAND"
 
