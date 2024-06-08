@@ -38,8 +38,8 @@ spec:
               name: postgres-storage
       volumes:
         - name: postgres-storage
-          persistentVolumeClaim:
-            claimName: postgres-pvc
+          hostpath:
+            path: /tmp/data
 
 ---
 apiVersion: v1
