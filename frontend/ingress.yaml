@@ -16,15 +16,16 @@ metadata:
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/healthy-threshold-count: '2'
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
-    # SSL certifacte Setting
+    # SSL certificate Setting
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
-    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:168933414344:certificate/b42b3726-ca13-43a5-80ce-436fee64c94e ## need to chnage
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:168933414344:certificate/b42b3726-ca13-43a5-80ce-436fee64c94e ## need to change
     # alb.ingress.kubernetes.io/ssl-redirect: '443'
 spec:
   ingressClassName: alb
   rules:
     - host: 
       http:
+        paths:
           - path: /
             pathType: Prefix
             backend:
@@ -32,4 +33,3 @@ spec:
                 name: frontend
                 port:
                   number: 3000
-
