@@ -45,4 +45,9 @@ jobs:
           cd frontend/
           kubectl apply -f frontend.yaml
           kubectl apply -f ingress.yaml
+          kubectl get pods -n my-app
+          kubectl get svc -n my-app
+          kubectl get ingress -n my-app
+          kubectl get pods -n kube-system
+
          
