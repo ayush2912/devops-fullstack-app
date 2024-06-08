@@ -44,4 +44,5 @@ jobs:
 
           cd frontend/
           kubectl apply -f frontend.yaml
+          kubectl apply -f ingress.yaml
          
