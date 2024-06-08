@@ -35,7 +35,7 @@ jobs:
           kubectl apply -f pvc.yaml
           kubectl apply -f postgress.yaml
          
-          kubectl get pvc postgres-pvc -n my-app
+          kubectl get pods -n my-app
 
 
 
