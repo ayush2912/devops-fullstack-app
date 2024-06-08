@@ -3,7 +3,7 @@ resource "aws_default_subnet" "default_az1" {
 
   tags = {
     "Name"                       = "private-us-east-1"
-    "kubernetes.io/role/elb"     = "1"
+    
     "kubernetes.io/cluster/my-cluster" = "shared"
   }
 }
@@ -13,7 +13,7 @@ resource "aws_default_subnet" "default_az2" {
 
   tags = {
     "Name"                       = "private-us-east-1"
-    "kubernetes.io/role/elb"     = "1"
+   
     "kubernetes.io/cluster/my-cluster" = "shared"
   }
 }
