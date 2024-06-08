@@ -103,6 +103,6 @@ jobs:
 
     - name: Deploy to EKS
       run: |
-         kubectl logs -n my-app -l app=backend
+         kubectl logs pod backend-57f65b9b69-c5g8s -n my-app 
 
 
