@@ -25,6 +25,11 @@ WORKDIR /root/
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/main .
 
+ENV DB_HOST=postgres
+ENV DB_PORT=5432
+ENV DB_USER=myuser
+ENV DB_DATABASE=mydatabase
+ENV DB_PASSWORD=mypassword
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
