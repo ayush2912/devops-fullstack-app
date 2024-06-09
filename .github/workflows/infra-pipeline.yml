@@ -103,6 +103,6 @@ jobs:
 
     - name: Deploy to EKS
       run: |
-         kubectl logs frontend-7557b6f689-pq92k -n my-app
+         kubectl get pod -n my-app
 
 
