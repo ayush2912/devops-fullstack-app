@@ -31,6 +31,8 @@ spec:
               value: myuser
             - name: POSTGRES_PASSWORD
               value: mypassword
+            - name: POSTGRES_HOST
+              value: host
           ports:
             - containerPort: 5432
           volumeMounts:
