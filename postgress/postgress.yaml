@@ -32,7 +32,7 @@ spec:
             - name: POSTGRES_PASSWORD
               value: mypassword
             - name: POSTGRES_HOST
-              value: host
+              value: postgres
           ports:
             - containerPort: 5432
           volumeMounts:
@@ -53,5 +53,6 @@ spec:
   type: ClusterIP
   ports:
     - port: 5432
+      targetPort: 5432
   selector:
     app: postgres
