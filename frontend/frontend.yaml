@@ -25,7 +25,7 @@ metadata:
   name: frontend
   namespace: my-app
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 3000
       targetPort:  3000
