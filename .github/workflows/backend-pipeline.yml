@@ -45,7 +45,7 @@ jobs:
           cd backend/
           kubectl apply -f backend.yaml
           kubectl get pods -n my-app
-          kubectl describe svc postgree -n my-app
+          kubectl describe svc postgres -n my-app
 
 
          
