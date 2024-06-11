@@ -18,9 +18,9 @@ spec:
           image: 590183924135.dkr.ecr.us-east-1.amazonaws.com/backend-test
           ports:
             - containerPort: 8080
-          # env:
-          #   - name: DATABASE_URL
-          #     value: postgres://myuser:mypassword@postgres:5432/mydatabase?sslmode=disable
+          env:
+            - name: DATABASE_URL
+              value:'postgres://myuser:mypassword@postgres.default.svc.cluster.local:5432/mydatabase'
 ---
 apiVersion: v1
 kind: Service
