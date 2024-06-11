@@ -20,7 +20,7 @@ spec:
             - containerPort: 8080
           env:
             - name: DATABASE_URL
-              value:'postgres://myuser:mypassword@postgres.default.svc.cluster.local:5432/mydatabase'
+              value: 'postgres://myuser:mypassword@postgres.default.svc.cluster.local:5432/mydatabase'
 ---
 apiVersion: v1
 kind: Service
