@@ -47,6 +47,8 @@ resource "aws_eks_cluster" "my_cluster" {
     endpoint_public_access = true
     endpoint_private_access = true
   }
+ 
+     
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   depends_on = [
@@ -69,7 +71,9 @@ resource "aws_security_group" "eks_node_group_sg" {
   }
 
 }
-
+data "aws_ssm_parameter" "eks_ami_release_version" {
+  name = "/aws/service/eks/optimized-ami/${aws_eks_cluster.my_cluster.version}/amazon-linux-2/recommended/release_version"
+}
 resource "aws_iam_role" "my_nodes" {
   name = "eks-node-group-my_nodes"
 
@@ -105,6 +109,7 @@ resource "aws_eks_node_group" "my_nodes" {
   node_group_name = "my_nodes"
   node_role_arn   = aws_iam_role.my_nodes.arn
   subnet_ids      = [var.subnet_id_1, var.subnet_id_2]
+  release_version = nonsensitive(data.aws_ssm_parameter.eks_ami_release_version.value)
   instance_types  = ["t3.large"]
   capacity_type   = "ON_DEMAND"
 
