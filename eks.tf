@@ -26,15 +26,12 @@ resource "aws_iam_role_policy_attachment" "my_cluster-AmazonEKSClusterPolicy" {
   role       = aws_iam_role.my_cluster.name
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EKS" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.my_cluster.name
 }
 
-resource "aws_iam_role_policy_attachment" "IAMFullAccess" {
-  policy_arn = "arn:aws:iam::aws:policy/IAMFullAccess"
-  role       = aws_iam_role.my_cluster.name
-}
+
 
 resource "aws_cloudwatch_log_group" "eks_cluster_logs" {
   name = "/aws/eks/my-cluster"
@@ -54,8 +51,8 @@ resource "aws_eks_cluster" "my_cluster" {
 
   depends_on = [
     aws_iam_role_policy_attachment.my_cluster-AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly-EKS,
-    aws_iam_role_policy_attachment.IAMFullAccess
+    aws_iam_role_policy_attachment.AmazonEKSVPCResourceController
+    
   ]
 }
 
