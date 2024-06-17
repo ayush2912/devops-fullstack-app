@@ -48,12 +48,13 @@ resource "aws_eks_cluster" "my_cluster" {
     endpoint_private_access = true
   }
  
-  depends_on = [aws_cloudwatch_log_group.eks_cluster_logs]   
+  
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   depends_on = [
     aws_iam_role_policy_attachment.my_cluster-AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.AmazonEKSVPCResourceController
+    aws_iam_role_policy_attachment.AmazonEKSVPCResourceController,
+    aws_cloudwatch_log_group.eks_cluster_logs
     
   ]
 }
