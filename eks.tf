@@ -31,7 +31,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController" {
   role       = aws_iam_role.my_cluster.name
 }
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterLogging" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterLoggingPolicy"
+  policy_arn = "arn:aws:iam::aws:policy/IAMFullAccess"
   role       = aws_iam_role.my_cluster.name
 }
 
