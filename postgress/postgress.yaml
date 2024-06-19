@@ -40,7 +40,7 @@ spec:
       volumes:
         - name: postgres-storage
           hostPath:
-            path: /tmp/data
+            path: /tmp/data/ayush
 
 ---
 apiVersion: v1
