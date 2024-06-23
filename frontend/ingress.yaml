@@ -20,19 +20,6 @@ spec:
   rules:
     - http:
         paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 3000
-
-spec:
-  ingressClassName: alb
-  rules:
-    - http:
-        paths:
           - path: /employees
             pathType: Prefix
             backend:
@@ -49,3 +36,5 @@ spec:
                 name: frontend
                 port:
                   number: 3000
+
+
