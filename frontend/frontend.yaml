@@ -17,7 +17,10 @@ spec:
         - name: frontend
           image: 590183924135.dkr.ecr.us-east-1.amazonaws.com/frontend-test:latest
           ports:
-            - containerPort: 3000
+          - containerPort: 3000
+          env:
+          - name: REACT_APP_SERVER_URL
+            value: "http://backend-service.default.svc.cluster.local:8080/employees"
 ---
 apiVersion: v1
 kind: Service
