@@ -27,3 +27,12 @@ spec:
                 name: backend
                 port:
                   number: 8080
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 3000
