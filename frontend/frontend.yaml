@@ -20,7 +20,7 @@ spec:
           - containerPort: 3000
           env:
           - name: REACT_APP_SERVER_URL
-            value: "http://backend.default.svc.cluster.local:8080/employees"
+            value: "http://k8s-myapp-ingress-15d3a2269c-2001310914.us-east-1.elb.amazonaws.com/employees"
 ---
 apiVersion: v1
 kind: Service
