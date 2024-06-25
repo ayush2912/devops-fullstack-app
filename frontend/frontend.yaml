@@ -18,9 +18,9 @@ spec:
           image: 590183924135.dkr.ecr.us-east-1.amazonaws.com/frontend-test:latest
           ports:
           - containerPort: 3000
-          env:
-          - name: REACT_APP_SERVER_URL
-            value: "http://k8s-myapp-ingress-15d3a2269c-2001310914.us-east-1.elb.amazonaws.com/employees"
+          # env:
+          # - name: REACT_APP_SERVER_URL
+          #   value: "http://k8s-myapp-ingress-15d3a2269c-2001310914.us-east-1.elb.amazonaws.com/employees"
 ---
 apiVersion: v1
 kind: Service
