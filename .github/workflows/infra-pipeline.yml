@@ -74,7 +74,7 @@ jobs:
         --namespace=kube-system \
         --name=aws-load-balancer-controller \
         --role-name AmazonEKSLoadBalancerControllerRole \
-        --attach-policy-arn=arn:aws:iam::590183924135:policy/AWSLoadBalancerControllerIAMPolicy \
+        --attach-policy-arn=arn:aws:iam::381492217945:policy/AWSLoadBalancerControllerIAMPolicy \
         --override-existing-serviceaccounts \
         --approve
 
